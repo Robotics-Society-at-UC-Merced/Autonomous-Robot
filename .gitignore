@@ -1,3 +1,6 @@
 /robot/build
 /robot/log
 /robot/install
+
+/robot/.vscode
+/robot/src/.vscode
