@@ -1,1 +1,0 @@
-main.py - CircuitPython file for controlling the motor using PWM. 
