@@ -34,7 +34,8 @@ class MyNode(Node):
         self.joy_r_horiz = 0.0
 
     def control_message_callback(self, msg):
-        self.get_logger().info(f'Received ControlMessage: {msg.control_mode}, {msg.input_mode}, {msg.input_pos}, {msg.input_vel}, {msg.input_torque}')
+        #self.get_logger().info(f'Received ControlMessage: {msg.control_mode}, {msg.input_mode}, {msg.input_vel})
+        pass
 
     def send_request(self, axis_requested_state):
         req = AxisState.Request()
@@ -73,18 +74,28 @@ def main(args=None):
 
     controller = MyNode()
 
+    print("Sending motor controller request")
+    controller.send_request(axis_requested_state=8)
+    print("Motor controller request accepted")
+
     while True:
         rclpy.spin_once(controller)
         vert, horiz = controller.get_joystick()
-        print(f"Verivzontal: {vert}, Horizontal: {horiz}")
+        #print(f"Vertical: {vert}, Horizontal: {horiz}")
+        
+        max_vel = 2.0
+        velocity = abs(vert * max_vel)
 
-    '''controller.send_request(axis_requested_state=8)
-
-    controller.publish_message(control_mode=2, 
-                                    input_mode=1, 
-                                    input_pos=0.0, 
-                                    input_vel=1.0, 
-                                    input_torque=0.0)'''
+        if velocity >= 0.0 or velocity <= 2.0:
+            controller.publish_message(
+                control_mode=2, 
+                input_mode=1, 
+                input_pos=0.0, 
+                input_vel=velocity, 
+                input_torque=0.0)
+            print(f"Motor0: {velocity} m/s")
+        else:
+            print("Velocity out of range")
 
 
 

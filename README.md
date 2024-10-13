@@ -14,12 +14,16 @@ Set up CANBus for the motors
  candump can0 -xct z -n 10    #verify can setup correctly
  ```
 Source and build the ROS2 workspace
+Navigate to the top level of the ROS2 workspace folder (Autonomous-Robot/robot/) and run 
  ```
+ colcon build --packages-select master odrive_can joystick
  source ./install/setup.zsh
- cd Autonomous-Robot/robot/
- colcon build --packages-select master odrive_can joystick 
  ```
- Run the demo
+Now you can run the demo to move the wheels
+Open up two different terminals at enter
 ```
-...
+ros2 launch master robot_launch.py  # first terminal
+```
+```
+ros2 run master test    # second terminal
 ```
