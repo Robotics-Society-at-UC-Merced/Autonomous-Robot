@@ -22,8 +22,10 @@ Navigate to the top level of the ROS2 workspace folder (Autonomous-Robot/robot/)
 Now you can run the demo to move the wheels
 Open up two different terminals at enter
 ```
+source ./install/setup.zsh
 ros2 launch master robot_launch.py  # first terminal
 ```
 ```
+source ./install/setup.zsh
 ros2 run master test    # second terminal
 ```
