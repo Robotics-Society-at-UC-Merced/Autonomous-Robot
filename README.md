@@ -17,7 +17,7 @@ Source and build the ROS2 workspace
  ```
  source ./install/setup.zsh
  cd Autonomous-Robot/robot/
- colcon build --packages-select odrive_can master joystick 
+ colcon build --packages-select master odrive_can joystick 
  ```
  Run the demo
 ```
