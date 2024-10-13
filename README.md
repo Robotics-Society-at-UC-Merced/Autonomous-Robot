@@ -7,10 +7,7 @@ sudo apt-get install ros-humble-joy ros2-humble-joystick-drivers
 sudo apt install ros-humble-depthai-ros
 ```
 
-### robot
-The ROS2 workspace pertaining to the overall structure of the robot is contained
-
-## Running 
+## Running ROS2 Code
 Set up CANBus for the motors
  ```
  sudo ip link set can0 up type can bitrate 250000
