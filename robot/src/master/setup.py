@@ -25,7 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'gamepad_control = master.gamepad_control:main',
-            'watchdog_feed = master.watchdog_feed:main',
+            'watchdog_feeder = master.watchdog_feeder:main',
             'robot_launch = master.robot_launch:main',
         ],
     },

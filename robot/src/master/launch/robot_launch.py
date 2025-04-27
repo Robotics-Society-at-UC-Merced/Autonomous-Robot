@@ -5,9 +5,7 @@ from launch_ros.actions import Node
 import os
 
 def generate_launch_description():
-    # Get the directory of the current file
     current_dir = os.path.dirname(__file__)
-    # Construct the absolute path to the launch file
     launch_file_path = os.path.join(current_dir, '../ros_odrive/odrive_node/launch/example_launch.yaml')
 
     return LaunchDescription([
@@ -21,7 +19,7 @@ def generate_launch_description():
         ),
         Node(
             package='master',
-            executable='watchdog_feed',
+            executable='watchdog_feeder',
             name='watchdog_feed_node',
-        )
+        ),
     ])
