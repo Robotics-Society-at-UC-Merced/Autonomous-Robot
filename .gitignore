@@ -4,3 +4,11 @@
 
 /robot/.vscode
 /robot/src/.vscode
+
+# Ignore ROS 2 build, install, and log directories
+**/build/
+**/install/
+**/log/
+
+# Ignore colcon-related files
+.colcon/
