@@ -28,5 +28,5 @@ ros2 launch master robot_launch.py  # first terminal
 ```
 ```
 source ./install/setup.zsh
-ros2 run master test    # second terminal
+ros2 run master gamepad_control    # second terminal
 ```
