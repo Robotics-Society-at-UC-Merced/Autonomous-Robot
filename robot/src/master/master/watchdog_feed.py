@@ -12,18 +12,18 @@ from odrive_can.srv import AxisState
 from odrive_can.msg import ControlMessage
 from rclpy.qos import QoSProfile
 
-class MyNode(Node):
+class WatchdogFeeder_Node(Node):
     def __init__(self):
-        super().__init__('my_node')
+        super().__init__('WatchdogFeeder_Node')
 
         self.test = 'test'
 
 
 def main(args=None):
     rclpy.init(args=args)
-    watchdog = MyNode()
+    node = WatchdogFeeder_Node()
     while True:
-        watchdog.get_logger().info('Watchdog node started')
+        node.get_logger().info('Watchdog node started')
         #watchdog.publish()
 
 
