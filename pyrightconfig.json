@@ -1,0 +1,7 @@
+{
+    "typeCheckingMode": "basic",
+    "reportMissingImports": false,
+    "ignore": [
+        "**/odrive_can/**"
+    ]
+}
