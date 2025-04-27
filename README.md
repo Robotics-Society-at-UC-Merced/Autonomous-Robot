@@ -2,6 +2,7 @@
 Robotics Society at UC Merced's project Autonomous Robot. Running ROS2 Humble. 
 
 ## Getting started
+Install the needed ROS2 Humble packages
 ```
 sudo apt-get install ros-humble-joy ros2-humble-joystick-drivers
 sudo apt install ros-humble-depthai-ros
