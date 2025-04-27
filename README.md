@@ -1,4 +1,4 @@
-# Auronomous Robot
+# Autonomous Robot
 Robotics Society at UC Merced's project Autonomous Robot. Running ROS2 Humble. 
 
 ## Getting started
@@ -8,7 +8,7 @@ sudo apt install ros-humble-depthai-ros
 ```
 
 ## Running ROS2 Code
-Set up CANBus for the motors
+Set up CANBus for the motors (only needed once per computer startup)
  ```
  sudo ip link set can0 up type can bitrate 250000
  candump can0 -xct z -n 10    #verify can setup correctly
