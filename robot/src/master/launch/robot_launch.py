@@ -19,4 +19,9 @@ def generate_launch_description():
             executable='joy_node',
             name='joy_node',
         ),
+        Node(
+            package='master',
+            executable='watchdog_feed',
+            name='watchdog_feed_node',
+        )
     ])

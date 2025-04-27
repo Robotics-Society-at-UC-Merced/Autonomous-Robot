@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'test = master.test:main',
+            'watchdog_feed = master.watchdog_feed:main',
             'robot_launch = master.robot_launch:main',
         ],
     },
