@@ -49,7 +49,7 @@ class GamePadControl_Node(Node):
         pass
     
     # ROS2 Service call to ODrive node of axis0 or axis1
-    def request_motor_status(self, axis_requested_state, axis=0):
+    def request_motor_control_state(self, axis_requested_state, axis=0):
         if axis == 0: client = self.motor_client0
         else: client = self.motor_client1
 
@@ -63,7 +63,7 @@ class GamePadControl_Node(Node):
             self.get_logger().error('Exception while calling service: %r' % future.exception())
 
     #ROS2 Topic Publisher to ODrive node of axis0 or axis1
-    def publish_motor_request(self, control_mode=2, input_mode=1, input_pos=0.0, input_vel=0.0, input_torque=0.0, axis=0):
+    def publish_motor_command(self, control_mode=2, input_mode=1, input_pos=0.0, input_vel=0.0, input_torque=0.0, axis=0):
         if axis == 0: publisher = self.motor_publisher0
         else: publisher = self.motor_publisher1
 
@@ -75,7 +75,7 @@ class GamePadControl_Node(Node):
         msg.input_torque = input_torque
         publisher.publish(msg)
 
-    #ROS2 Topic Subscriber to joystick node
+    #ROS2 Topic Subscriber callback to joystick node
     def joy_callback(self, msg):
         axes = [float(val) for val in msg.axes]
         buttons = [float(val) for val in msg.buttons]
@@ -93,13 +93,13 @@ class GamePadControl_Node(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    node = GamePadControl_Node()
+    node = GamePadControl_Node()    
 
-    # Send request to both motor controllers to enter closed loop control mode
+    # Send a service request to both motor controllers to enter closed loop control mode
     print("Sending motor controller0 request")
-    node.request_motor_status(axis_requested_state=8, axis=0)
+    node.request_motor_control_state(axis_requested_state=8, axis=0)
     print("Sending motor controller1 request")
-    node.request_motor_status(axis_requested_state=8, axis=1)
+    node.request_motor_control_state(axis_requested_state=8, axis=1)
     time.sleep(1)
 
     # Main loop to control the robot
@@ -107,7 +107,7 @@ def main(args=None):
         rclpy.spin_once(node)
         vert, horiz = node.get_joystick()
 
-        max_vel = 2.0
+        max_vel = 2.0   # maximum velocity in m/s
         v_x = horiz * max_vel  # Horizontal input for forward/backward motion
         v_y = vert * max_vel  # Vertical input for turning
 
@@ -115,13 +115,15 @@ def main(args=None):
             motor0_vel = v_x - v_y  # Adjust for turning
             motor1_vel = v_x + v_y  # Adjust for turning
 
-            node.publish_motor_request(
+            # Publish velocity commands to motor #0
+            node.publish_motor_command(
                 control_mode=2, 
                 input_mode=1, 
                 input_vel=motor0_vel,
                 axis=0)
 
-            node.publish_motor_request(
+            # Publish velocity commands to motor #1
+            node.publish_motor_command(
                 control_mode=2, 
                 input_mode=1, 
                 input_vel=motor1_vel,
