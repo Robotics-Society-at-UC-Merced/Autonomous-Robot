@@ -15,7 +15,7 @@ sudo apt install ros-humble-depthai-ros
 
 This is a sytem diagram of how the robot (currently 4/27/25) functions. The corresponding information pertains to the package `master`. The other two packages `ros_odrive` and `joysick `are community packages.
 
- ![ROS2 System Diagram](../ros2diagram.png)
+ ![ROS2 System Diagram](ros2diagram.png)
 
 ## Running ROS2 Code
 
