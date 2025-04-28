@@ -79,9 +79,11 @@ class GamePadControl_Node(Node):
     def joy_callback(self, msg):
         axes = [float(val) for val in msg.axes]
         buttons = [float(val) for val in msg.buttons]
-
-        self.joy_r_horiz = axes[2]
+        self.joy_r_horiz = axes[0]
         self.joy_r_vert = axes[3]
+        #                 horizontal verical
+        # left Joystick   axes[0]    axes[1]
+        # right Joystick  axes[2]    axes[3]
 
         #self.get_logger().info(f'Received Joy message: axes={axes}, buttons={buttons}')
 
