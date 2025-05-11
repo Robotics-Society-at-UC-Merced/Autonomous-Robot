@@ -55,8 +55,12 @@ class GamePadControl_Node(Node):
 
         req = AxisState.Request()
         req.axis_requested_state = axis_requested_state
+        self.get_logger().info(f"Requesting axis {axis} state: {axis_requested_state}")
         future = client.call_async(req)
         rclpy.spin_until_future_complete(self, future)
+        while future.result() is None:
+            self.get_logger().info('Waiting for service response...')
+            time.sleep(0.1)
         if future.result() is not None:
             self.get_logger().info(f'Received response: {future.result()}')
         else:
@@ -97,11 +101,21 @@ def main(args=None):
 
     node = GamePadControl_Node()    
 
+    # odrive nodes are not sending a service request completion notice
+    # the program will hang after sending a request
+    # manually
+
+    # run them manually with this (crun two times, one with axis0 and with axis1)
+    # then run the code normally
+
+    # bug is the service callback wont terminate
+
+
     # Send a service request to both motor controllers to enter closed loop control mode
-    print("Sending motor controller0 request")
-    node.request_motor_control_state(axis_requested_state=8, axis=0)
-    print("Sending motor controller1 request")
-    node.request_motor_control_state(axis_requested_state=8, axis=1)
+    #print("Sending motor controller0 request")
+    #node.request_motor_control_state(axis_requested_state=8, axis=0)
+    #print("Sending motor controller1 request")
+    #node.request_motor_control_state(axis_requested_state=8, axis=1)
     time.sleep(1)
 
     # Main loop to control the robot
@@ -109,7 +123,7 @@ def main(args=None):
         rclpy.spin_once(node)
         vert, horiz = node.get_joystick()
 
-        max_vel = 2.0   # maximum velocity in m/s
+        max_vel = 1.0   # maximum velocity in m/s
         v_x = horiz * max_vel  # Horizontal input for forward/backward motion
         v_y = vert * max_vel  # Vertical input for turning
 
